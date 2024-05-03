@@ -1,12 +1,15 @@
 namespace Starwars.Api.Model.Swapi.Film
 {
     public class Film{
-        public string? title;
-        public int? episode_id;
-        public string? opening_crawl;    
-        public string? director;
-        public string? producer;
-        public string? release_date;
-        public string? url;        
+        public string title { get; set; }
+        public int episode_id { get; set; }
+        public string opening_crawl { get; set; }   
+        public string director { get; set; }
+        public string producer { get; set; }
+        public string release_date { get; set; }
+        public string url { get; set; }  
+        public int id {get{
+            int id = Int32.Parse(url.TrimEnd('/').Split('/').Last());
+            return id;}}              
     }
 }

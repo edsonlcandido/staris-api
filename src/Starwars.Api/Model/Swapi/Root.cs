@@ -2,8 +2,8 @@
 namespace Starwars.Api.Model.Swapi;
 public class Root<T>
 {
-    public List<T> results { get; set; }
-    public int count { get; set; }
-    public string next { get; set; }
-    public string previous { get; set; }    
+    public List<T> Results { get; set; }
+    public int Count { get; set; }
+    public string Next { get; set; }
+    public string Previous { get; set; }    
 }
