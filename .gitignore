@@ -397,3 +397,5 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 .mono/**/*
+app.db
+src/Starwars.Api/app.db

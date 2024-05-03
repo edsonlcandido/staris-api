@@ -4,5 +4,6 @@ CREATE TABLE Movies (
     Episode INTEGER,
     Director TEXT,
     Producer TEXT,
+    OpeningCrawl TEXT,
     ReleaseDate DATE
 );
