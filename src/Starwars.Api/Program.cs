@@ -1,10 +1,9 @@
 using EvolveDb;
+using MediatR;
 using Microsoft.Data.Sqlite;
+using Microsoft.Extensions.DependencyInjection;
 using Starwars.Api.Data.Entites;
 
-
-var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
 var outputPath = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory());
 var cnx = new SqliteConnection($@"Data Source=./app.db");
 var evolve = new Evolve(cnx)
@@ -14,33 +13,14 @@ var evolve = new Evolve(cnx)
 };
 evolve.Migrate();
 
+var builder = WebApplication.CreateBuilder(args);
 
 
+var app = builder.Build();
 app.MapGet("/", () => "Hello World!");
-
 app.MapGet("/movies", async () =>
 {
-    IRepository<Movie> movies = new Repository<Movie>();
-    var result = await movies.GetAll();
-    if (result.Count() == 0)
-    {
-        var swapi = new Swapi();
-        var swapiMovies = await swapi.GetFilms();
-        foreach (var film in swapiMovies.results)
-        {
-            await movies.Add(new Movie
-            {
-                Title = film.title,
-                Episode = film.episode_id,
-                OpeningCrawl = film.opening_crawl,
-                Director = film.director,
-                Producer = film.producer,
-                ReleaseDate = film.release_date
-            });
-        }
-        result = await movies.GetAll();
-    };
-    
+    var result = await new GetMoviesQuery().Query();
     return Results.Ok(result);
 });
 
